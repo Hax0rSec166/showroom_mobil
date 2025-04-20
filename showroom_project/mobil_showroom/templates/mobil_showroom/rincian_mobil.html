@@ -1,0 +1,128 @@
+<!-- edit_mobil.html -->
+<!DOCTYPE html>
+<html lang="id">
+<head {% load humanize %}>
+    <meta charset="UTF-8">
+    <title>Rincian Mobil: {{ mobil.nama }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px 12px;
+            margin-top: 6px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 15px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 16px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-delete {
+            background-color: #dc3545;
+            margin-top: 0;
+        }
+
+        .btn-delete:hover {
+            background-color: #c82333;
+        }
+
+        .hpp-info {
+            margin-top: 30px;
+            font-size: 16px;
+            background-color: #f1f1f1;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 30px;
+            text-align: center;
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        .back-link:hover {
+            color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Rincian Mobil: {{ mobil.nama }}</h1>
+
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <!-- Aktifkan tombol jika form edit diaktifkan -->
+            <!-- <button type="submit">Simpan Perubahan</button> -->
+        </form>
+
+        <form action="{% url 'hapus_mobil' mobil.id %}" method="post" onsubmit="return confirm('Yakin ingin menghapus mobil ini?');">
+            {% csrf_token %}
+            <button type="submit" class="btn-delete">Hapus Mobil</button>
+        </form>
+
+        <div class="hpp-info">
+            <strong>Harga Pokok Produksi (HPP):</strong><br>
+            {% if mobil.hitung_hpp %}
+                Rp {{ mobil.hitung_hpp|intcomma }}
+            {% else %}
+                <span style="color: #888;">Tidak dapat dihitung (data tidak lengkap)</span>
+            {% endif %}
+        </div>
+
+        <a href="{% url 'daftar_mobil' %}" class="back-link">← Kembali ke Daftar Mobil</a>
+    </div>
+</body>
+</html>

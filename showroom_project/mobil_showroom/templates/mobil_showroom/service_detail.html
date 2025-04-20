@@ -1,0 +1,88 @@
+{% load rupiah_filters %}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Detail Service Mobil</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: auto;
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2c3e50;
+        }
+
+        .detail-item {
+            margin-bottom: 20px;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .detail-item strong {
+            display: inline-block;
+            width: 160px;
+            color: #555;
+        }
+
+        .back-link {
+            display: inline-block;
+            text-align: center;
+            margin-top: 30px;
+            padding: 12px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+
+        .back-link:hover {
+            background-color: #0056b3;
+        }
+
+        @media (max-width: 600px) {
+            .detail-item strong {
+                display: block;
+                width: 100%;
+                margin-bottom: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Detail Service Mobil</h1>
+
+        <div class="detail-item">
+            <strong>Tanggal Service:</strong> {{ service.tanggal_service|date:"d F Y" }}
+        </div>
+        <div class="detail-item">
+            <strong>Deskripsi:</strong> {{ service.deskripsi }}
+        </div>
+        <div class="detail-item">
+            <strong>Biaya:</strong> {{ service.biaya|rupiah }}
+        </div>
+        <div class="detail-item">
+            <strong>Mobil:</strong> {{ service.mobil.nama }} ({{ service.mobil.merk }} - {{ service.mobil.tahun }})
+        </div>
+
+        <a href="{% url 'daftar_mobil' %}" class="back-link">← Kembali ke Daftar Mobil</a>
+    </div>
+</body>
+</html>
